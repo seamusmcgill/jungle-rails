@@ -2,18 +2,24 @@
 
 <div class="row">
   <div class="col-sm-6">
-    <div class="card">
+    <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title text-uppercase">Products Count</h5>
-        <span class="h2 font-weight-bold mb-0"><%= @products %></span>
+        <p class="h2 font-weight-bold mb-0"><%= @products %></p>
+        <%= link_to [:admin, :products], class: 'btn btn-primary' do %>
+          View Products
+        <% end %>
       </div>
     </div>
   </div>
   <div class="col-sm-6">
-    <div class="card">
+    <div class="card text-center">
       <div class="card-body">
         <h5 class="card-title text-uppercase">Categories Count</h5>
-        <span class="h2 font-weight-bold mb-0"><%= @categories %></span>
+        <p class="h2 font-weight-bold mb-0"><%= @categories %></p>
+        <%= link_to [:admin,:categories], class: 'btn btn-primary' do %>
+          View Categories
+        <% end %>
       </div>
     </div>
   </div>
