@@ -18,7 +18,12 @@
   </footer>
 
   <aside class="price">
-    <%= humanized_money_with_symbol product.price %>
+    <%if active_sale? %>
+      <s class="text-danger"><%= humanized_money_with_symbol product.price %></s><br>
+      <strong><%= humanized_money_with_symbol product.sale_price %></strong>
+    <% else %>
+      <%= humanized_money_with_symbol product.price %>
+    <% end %>
   </aside>
 
   <% if product.quantity == 0 %>
