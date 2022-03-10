@@ -38,4 +38,9 @@ class ApplicationController < ActionController::Base
     cookies[:cart]
   end
 
+  def empty_cart?
+    enhanced_cart.length() == 0
+  end
+  helper_method :empty_cart?
+
 end

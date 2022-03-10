@@ -15,4 +15,8 @@ class Product < ActiveRecord::Base
     sale_price = price * (1 - (Sale.active.first.percent_off.to_f / 100))
   end
 
+  def sold_out?
+    quantity == 0
+  end
+
 end
