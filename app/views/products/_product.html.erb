@@ -26,7 +26,7 @@
     <% end %>
   </aside>
 
-  <% if product.quantity == 0 %>
+  <% if product.sold_out? %>
     <aside class="sold-out">
         SOLD OUT!
     </aside>

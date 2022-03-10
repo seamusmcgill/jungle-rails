@@ -14,4 +14,9 @@ class Product < ActiveRecord::Base
     # Calculate by subtracting the active sales percent off integer divided by 100 from 1
     sale_price = price * (1 - (Sale.active.first.percent_off.to_f / 100))
   end
+
+  def sold_out?
+    quantity == 0
+  end
+
 end
