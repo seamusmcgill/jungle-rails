@@ -1,3 +1,6 @@
+require 'rails_helper'
+
+RSpec.describe User, type: :model do
   describe 'Validations' do
     subject do 
       @user = User.new(name: 'Joe Blow', email: 'joeblow@gmail.com', password: 'password', password_confirmation: 'password')
@@ -44,3 +47,34 @@
       expect(subject.errors.full_messages).to include("Password is too short (minimum is 6 characters)")
     end
   end
+  describe '.authenticate_with_credentials' do
+    # examples for this class method here
+    subject do 
+      @user = User.new(name: 'Joe Blow', email: 'joeblow@gmail.com', password: 'password', password_confirmation: 'password')
+    end
+    it 'should authenticate a user when they exist in the database' do
+      subject.save
+      @session_user = User.authenticate_with_credentials('joeblow@gmail.com', 'password')
+      expect(@session_user.name).to eq('Joe Blow')
+    end
+    it 'should authenticate a user who exists with trailing spaces in their email' do
+      subject.save
+      @session_user = User.authenticate_with_credentials('  joeblow@gmail.com  ', 'password')
+      expect(@session_user.name).to eq('Joe Blow')
+    end
+    it 'should authenticate a user who enters their email in mismatched case' do
+      subject.save
+      @session_user = User.authenticate_with_credentials('JoEbLoW@GMAIL.com', 'password')
+      expect(@session_user.name).to eq('Joe Blow')
+    end
+    it 'should not authenticate a user when they exist but enter the wrong password' do
+      subject.save
+      @session_user = User.authenticate_with_credentials('joeblow@gmail.com', 'PASSWORD')
+      expect(@session_user).to be_nil
+    end
+    it 'should not authenticate a user when they do not exist in the database' do
+      @session_user = User.authenticate_with_credentials('bigdog@gmail.com', 'password')
+      expect(@session_user).to be_nil
+    end
+  end
+end
