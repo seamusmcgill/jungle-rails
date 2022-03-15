@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Order #<%= @order.id %> Summary</h1>
+    <% @order.line_items.each do |item| %>
+      <%= item.quantity %> <%= item.product.name %> @ <%= humanized_money_with_symbol item.product.price %> = <%= humanized_money_with_symbol item.product.price * item.quantity %> 
+    <% end %>
+    <p>
+      ORDER TOTAL: <%= humanized_money_with_symbol @order.total_cents / 100.0 %>
+    </p>
+    <p>Thank you for your order!</p>
+  </body>
+</html>
