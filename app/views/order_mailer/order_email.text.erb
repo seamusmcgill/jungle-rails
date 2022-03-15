@@ -1,0 +1,10 @@
+Order #<%= @order.id %> Summary
+===============================================
+ 
+<% @order.line_items.each do |item| %>
+  <%= item.quantity %> <%= item.product.name %> @ <%= humanized_money_with_symbol item.product.price %> = <%= humanized_money_with_symbol item.product.price * item.quantity %> 
+<% end %>.
+ 
+ORDER TOTAL: <%= humanized_money_with_symbol @order.total_cents / 100.0 %>
+
+Thank you for your order!
